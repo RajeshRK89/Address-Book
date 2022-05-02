@@ -20,7 +20,7 @@ from setup.application import Application
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("book", include("book.urls")),
-    path("oauth/", include("oauth2_provider.urls", namespace="oauth2_provider")),
-    # ...
+    path("", include("book.urls")),
+    path("", include("setup.oauth2_provider_urls")),
+    # path("oauth/", include("oauth2_provider.urls", namespace="oauth2_provider")),
 ]

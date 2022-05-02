@@ -1,8 +1,19 @@
 from rest_framework.routers import SimpleRouter
+from rest_framework_extensions.routers import ExtendedSimpleRouter
+from .views import *
+
+router = SimpleRouter(trailing_slash=False)
+extrouter = ExtendedSimpleRouter(trailing_slash=False)
+
+router.register("user", UserViewSet, "user")
+router.register("address", AddressViewSet, "address")
 
 
-from . import views
+extrouter.register(r"user", UserViewSet, basename="user").register(
+    r"address",
+    AddressViewSet,
+    basename="user-address",
+    parents_query_lookups=["user"],
+)
 
-router = SimpleRouter()
-router.register("user", views.UserViewSet, "user")
-urlpatterns = api_url_patterns = router.urls
+urlpatterns = router.urls + extrouter.urls

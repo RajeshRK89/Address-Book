@@ -14,7 +14,7 @@ from pathlib import Path
 import environ
 
 root = environ.Path(__file__) - 2
-print("oot", root)
+
 env = environ.Env(
     DEBUG=(bool, False),
 )
@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_8)9t2^$=5phv-p3_r__tj*3(@-p%1fj*$ftm080whn6(5nqwb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 AUTH_USER_MODEL = "book.User"
@@ -39,7 +39,7 @@ AUTH_USER_MODEL = "book.User"
 # Application definition
 
 INSTALLED_APPS = [
-    "corsheaders",
+    "oauth2_provider",
     "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -51,22 +51,9 @@ INSTALLED_APPS = [
     "sequence",
     "setup",
     "safedelete",
-    "oauth2_provider",
+    "corsheaders",
 ]
 
-REST_FRAMEWORK = {
-    "DATETIME_FORMAT": "%m/%d/%Y %I:%M %p",
-    "DATE_FORMAT": "%m/%d/%Y",
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ),
-    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
-    "PAGE_SIZE": 30,
-}
 
 CORS_ALLOW_HEADERS = (
     "accept",
@@ -74,13 +61,6 @@ CORS_ALLOW_HEADERS = (
     "authorization",
     "content-type",
     "cache-control",
-    "Store",
-    "Area",
-    "Customer",
-    "Warehouse",
-    "RECAPTCHA",
-    "dnt",
-    "origin",
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
@@ -106,8 +86,23 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "oauth2_provider.middleware.OAuth2TokenMiddleware",
+    "oauth2_provider.middleware.OAuth2TokenMiddleware",
 ]
+
+
+REST_FRAMEWORK = {
+    "DATETIME_FORMAT": "%m/%d/%Y %I:%M %p",
+    "DATE_FORMAT": "%m/%d/%Y",
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    "PAGE_SIZE": 30,
+}
 
 ROOT_URLCONF = "address_book.urls"
 CORS_ORIGIN_ALLOW_ALL = True
@@ -141,17 +136,14 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
 # OAUTH2_PROVIDER Settings
 OAUTH2_PROVIDER = {
-    "OAUTH2_VALIDATOR_CLASS": "oauth2_provider.oauth2_validators.OAuth2Validator",
+    "OAUTH2_VALIDATOR_CLASS": "setup.oauth2_validators.OAuth2Validator",
 }
 
 AUTHENTICATION_BACKENDS = (
     "oauth2_provider.backends.OAuth2Backend",
-    # "address_book.backends.UserTypeBackend",
+    "setup.backends.UserTypeBackend",
 )
 
 

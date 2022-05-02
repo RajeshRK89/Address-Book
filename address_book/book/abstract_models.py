@@ -1,10 +1,23 @@
 import uuid
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from sequence.models import SequenceField
 from safedelete.models import SafeDeleteModel, SOFT_DELETE_CASCADE
 from django_countries.fields import CountryField
+
+
+class UserManager(BaseUserManager):
+    def get_by_natural_key(self, username, user_type):
+        user_type = user_type if user_type else "su"
+        return self.get(
+            **{
+                self.model.USERNAME_FIELD: username,
+                "deleted__isnull": True,
+                "user_type": user_type,
+                "is_guest": False,
+            }
+        )
 
 
 class TimestampMixin(models.Model):
@@ -41,7 +54,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, SafeDeleteModel, Timestam
 
     @property
     def allow_login(self):
-
+        print("am i here")
         if self.is_active:
             return True
         else:
@@ -67,6 +80,15 @@ class AbstractAddress(SafeDeleteModel, TimestampMixin):
     zip = models.CharField(max_length=64)
     country = CountryField()
     phone = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+        app_label = "book"
+
+
+class AbstractQueryLog(models.Model):
+    query = models.TextField()
+    ran_on = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True

@@ -7,3 +7,7 @@ class User(abstract_models.AbstractUser):
 
 class Address(abstract_models.AbstractAddress):
     pass
+
+
+class QueryLog(abstract_models.AbstractQueryLog):
+    pass

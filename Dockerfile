@@ -12,5 +12,3 @@ COPY ./requirements.txt /address_book/requirements.txt
 #     apt-get install -y binutils libproj-dev gdal-bin
 
 RUN pip install -r /address_book/requirements.txt
-
-RUN python manage.py migrate
