@@ -1,0 +1,13 @@
+django==4.0.4
+djangorestframework==3.12.4
+django-environ==0.4.5
+django-safedelete==1.0.0
+oauth2-provider==0.0
+oauthlib==3.1.1
+psycopg2-binary==2.8.6
+django-countries==7.3.2 
+django-filter==21.1
+django-oauth-toolkit
+django-cors-headers==3.11.0
+pytz==2021.1
+rest-framework-generic-relations==2.0.0

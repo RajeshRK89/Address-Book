@@ -1,0 +1,23 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+django-env/
+.Python
+.eggs/
+lib/
+lib64/
+var/
+.installed.cfg
+
+# Env
+address/bin
+address
+*.DS_Store
+

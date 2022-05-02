@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+
+  backend:
+    restart: always
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./address_book:/address_book
+    environment:
+      - DEBUG='True'
+    command: sh -c "python manage.py migrate & python /address_book/manage.py runserver 0.0.0.0:8000"
