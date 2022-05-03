@@ -4,13 +4,15 @@ Steps to run the code:
 
 1) Clone the repository
 
-2) Run docker-compose up 
+2) change the env_dev to .env
 
-3) Run python manage.py setup by getting inside the backend container shell
+3) Run docker-compose up 
 
-4) You will get the client id and secret id for the application 
+4) Run python manage.py setup by getting inside the backend container shell
 
-5) To get the access token follow the below steps:
+5) You will get the client id and secret id for the application 
+
+6) To get the access token follow the below steps:
      
      In postman in authorisation section , provide your client_id and secret as generated before in the username and password section by choosing basic auth 
 
@@ -21,10 +23,10 @@ Steps to run the code:
     http://0.0.0.0:8000/user (user viewset to generate users which is of no restriction (allowny is provided))
 
 
-5) Run the API's for crud
+7) Run the API's for crud
     keeping the access token in authorisation section by choosing bearer token
 
     1) http://0.0.0.0.8000/user (get, post, patch and delete)
-    
+
 
     2)http://0.0.0.0.8000/address(get, post, patch and delete)
