@@ -30,3 +30,16 @@ Steps to run the code:
 
 
     2)http://0.0.0.0.8000/address(get, post, patch and delete)
+
+
+
+
+------------------------------------------
+
+Newest addition in this implementation:
+
+-----------------------------------------
+
+1) Complete oauth2 with custom validator
+2) Nestedlistmixin with extended router
+3) Ready to deploy ( dockerized)
