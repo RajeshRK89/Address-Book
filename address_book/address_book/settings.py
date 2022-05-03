@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_8)9t2^$=5phv-p3_r__tj*3(@-p%1fj*$ftm080whn6(5nqwb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 AUTH_USER_MODEL = "book.User"

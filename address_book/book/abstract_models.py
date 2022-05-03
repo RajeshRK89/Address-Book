@@ -45,6 +45,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, SafeDeleteModel, Timestam
     is_guest = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    objects = UserManager()
 
     USERNAME_FIELD = "email"
 
@@ -54,7 +55,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin, SafeDeleteModel, Timestam
 
     @property
     def allow_login(self):
-        print("am i here")
         if self.is_active:
             return True
         else:

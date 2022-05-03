@@ -11,7 +11,7 @@ class UserTypeBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
         try:
-            user = UserModel._default_manager.get_by_natural_key(username)
+            user = UserModel._default_manager.get_by_natural_key(username, "su")
             if user and user.check_password(password) and self.user_can_authenticate(user):
                 return user
         except UserModel.DoesNotExist:
