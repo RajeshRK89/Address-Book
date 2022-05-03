@@ -21,6 +21,8 @@ class AddressCreateUpdateSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Address
-        fields = "__all__"
+        fields = ("user", "type", "address_1", "address_2", "city", "state", "zip", "country", "phone")

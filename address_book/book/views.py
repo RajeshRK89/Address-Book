@@ -1,6 +1,7 @@
 from rest_framework import viewsets, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from .serializers import *
 from .models import *
 from .log import log_entry
@@ -9,6 +10,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
     queryset = User.objects.all().order_by("-datetime_created")
     filter_backends = (filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend)
@@ -23,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserSerializer
 
     def get_queryset(self):
-        log_entry(self.queryset.query)
+        # log_entry(self.queryset.query)
         return self.queryset
 
     def create(self, request, *args, **kwargs):
@@ -38,7 +40,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-class AddressViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+class AddressViewSet(viewsets.ModelViewSet):
     serializer_class = AddressSerializer
     queryset = Address.objects.all().order_by("-datetime_created")
     filter_backends = (filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend)
@@ -53,5 +55,5 @@ class AddressViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             return AddressSerializer
 
     def get_queryset(self):
-        log_entry(self.queryset.query)
+        # log_entry(self.queryset.query)
         return self.queryset
